@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PULSE — Performance Gear</title>
+    <meta
+      name="description"
+      content="Premium athletic apparel and performance gear. Move faster. Train harder."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/pulse.css" />
+  </head>
+  <body>
+    <div id="header"></div>
+    <section class="hero">
+      <div class="hero-slash"></div>
+      <div class="hero-panel"></div>
+      <div class="hero-fade"></div>
+      <div class="wrap hero-copy">
+        <p class="kicker">Performance gear</p>
+        <h1 class="display">Move faster.<br />Train harder.</h1>
+        <p class="lede">
+          Athletic apparel designed for speed, control and everyday performance.
+        </p>
+        <div class="actions">
+          <a class="btn btn-dark" href="store.html">Shop now</a>
+          <a class="btn btn-ghost" href="store.html">View collection</a>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Shop by category</p>
+            <h2 class="display">The lineup</h2>
+          </div>
+          <a class="muted-link" href="store.html">All products</a>
+        </div>
+        <div class="cats" id="categories"></div>
+      </div>
+    </section>
+    <section class="section" style="padding-top: 0; background: #fff">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Featured</p>
+            <h2 class="display">Selected gear</h2>
+          </div>
+          <a class="muted-link" href="store.html">View all</a>
+        </div>
+        <div class="grid" id="featured"></div>
+      </div>
+    </section>
+    <section class="promo">
+      <div class="wrap">
+        <div class="promo-box">
+          <p class="kicker">Built for training</p>
+          <h2 class="display">Engineered<br />for movement.</h2>
+          <p>
+            Clean cuts, durable fabrics and a silent palette. Performance first,
+            always.
+          </p>
+          <div class="actions" style="margin-top: 1.5rem">
+            <a class="btn btn-dark" href="store.html">Explore the store</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="footer"></div>
+    <script src="assets/pulse.js"></script>
+    <script>
+      Pulse.renderHome()
+    </script>
+  </body>
+</html>
