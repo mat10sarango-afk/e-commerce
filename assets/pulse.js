@@ -39,7 +39,7 @@ const CATEGORIES = [
 ]
 
 function money(value) {
-  return new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" }).format(value)
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value)
 }
 
 function getCart() {

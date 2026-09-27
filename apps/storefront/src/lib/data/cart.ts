@@ -59,7 +59,7 @@ export async function getOrSetCart(countryCode: string) {
     throw new Error(`Region not found for country code: ${countryCode}`)
   }
 
-  let cart = await retrieveCart(undefined, "id,region_id")
+  let cart = await retrieveCart(undefined, "id,region_id,currency_code")
 
   const headers = {
     ...(await getAuthHeaders()),
@@ -80,7 +80,10 @@ export async function getOrSetCart(countryCode: string) {
     revalidateTag(cartCacheTag)
   }
 
-  if (cart && cart?.region_id !== region.id) {
+  if (
+    cart &&
+    (cart.region_id !== region.id || cart.currency_code !== region.currency_code)
+  ) {
     await sdk.store.cart.update(cart.id, { region_id: region.id }, {}, headers)
     const cartCacheTag = await getCacheTag("carts")
     revalidateTag(cartCacheTag)

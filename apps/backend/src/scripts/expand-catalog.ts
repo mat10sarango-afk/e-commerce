@@ -239,7 +239,7 @@ export default async function expandCatalog({ container }: ExecArgs) {
           options: { Size: size },
           prices: [
             { amount: item.amount, currency_code: "eur" },
-            { amount: Math.round(item.amount * 1.1), currency_code: "usd" },
+            { amount: item.amount, currency_code: "usd" },
           ],
         })),
         sales_channels: [{ id: defaultSalesChannel.id }],
