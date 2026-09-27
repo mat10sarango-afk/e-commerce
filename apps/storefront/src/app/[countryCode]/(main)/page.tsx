@@ -9,6 +9,7 @@ import Editorial from "@modules/home/components/editorial"
 import BestSellers from "@modules/home/components/best-sellers"
 import { getRegion } from "@lib/data/regions"
 import { listProducts } from "@lib/data/products"
+import { getCatalogFlags } from "@lib/media/catalog"
 
 export const metadata: Metadata = {
   title: "PULSE — Performance Gear",
@@ -34,15 +35,15 @@ export default async function Home(props: {
   } = await listProducts({
     regionId: region.id,
     queryParams: {
-      fields: "*variants.calculated_price,*categories",
-      limit: 12,
+      fields: "*variants.calculated_price,*categories,+metadata",
+      limit: 50,
     },
   })
 
   const catalog = products || []
   const collectionItems = catalog.slice(0, 3)
-  const arrivals = catalog.slice(0, 8)
-  const sellers = [...catalog].reverse().slice(0, 4)
+  const arrivals = catalog.filter((product) => getCatalogFlags(product).isNew).slice(0, 8)
+  const sellers = catalog.filter((product) => getCatalogFlags(product).onSale).slice(0, 4)
 
   return (
     <>

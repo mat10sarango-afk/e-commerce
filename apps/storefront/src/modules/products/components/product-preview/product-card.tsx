@@ -8,6 +8,7 @@ type ProductCardProps = {
   title: string
   category?: string | null
   price?: string | null
+  originalPrice?: string | null
   extra?: string | null
   primary: string
   hover?: string | null
@@ -20,6 +21,7 @@ const ProductCard = ({
   title,
   category,
   price,
+  originalPrice,
   extra,
   primary,
   hover,
@@ -67,7 +69,12 @@ const ProductCard = ({
           <h3 className="text-sm font-medium text-black" data-testid="product-title">
             {title}
           </h3>
-          {price && <p className="mt-1 text-sm font-semibold">{price}</p>}
+          <div className="mt-1 flex items-center gap-2">
+            {originalPrice && (
+              <p className="text-sm text-[#707070] line-through">{originalPrice}</p>
+            )}
+            {price && <p className="text-sm font-semibold">{price}</p>}
+          </div>
           {extra && (
             <p className="text-[11px] uppercase tracking-[0.14em] text-[#707070]">
               {extra}

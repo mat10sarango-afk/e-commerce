@@ -311,6 +311,22 @@ select {
   color: #0a0a0a;
 }
 
+.catalog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
+  margin-top: 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.catalog-filters a.is-active {
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
 .cats,
 .grid {
   display: grid;

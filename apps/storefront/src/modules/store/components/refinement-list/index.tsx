@@ -8,18 +8,21 @@ import {
   parseOptionValueIds,
 } from "@lib/util/product-option-filters"
 import OptionsPicker from "./options-picker"
+import CategoryGroupFilters from "./category-group-filters"
 import SortProducts, { SortOptions } from "./sort-products"
 
 type RefinementListProps = {
   sortBy: SortOptions
   search?: boolean
   hideOptionsPicker?: boolean
+  showCategoryFilters?: boolean
   "data-testid"?: string
 }
 
 const RefinementList = ({
   sortBy,
   hideOptionsPicker = false,
+  showCategoryFilters = false,
   "data-testid": dataTestId,
 }: RefinementListProps) => {
   const router = useRouter()
@@ -65,6 +68,7 @@ const RefinementList = ({
 
   return (
     <div className="flex flex-col gap-10 py-4 mb-4 small:px-0 small:min-w-[240px] small:mr-8 surface-card p-5">
+      {showCategoryFilters && <CategoryGroupFilters />}
       <SortProducts
         sortBy={sortBy}
         setQueryParams={setQueryParams}

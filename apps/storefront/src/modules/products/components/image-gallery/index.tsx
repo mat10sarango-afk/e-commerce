@@ -7,14 +7,19 @@ import { useState } from "react"
 
 type ImageGalleryProps = {
   images: HttpTypes.StoreProductImage[]
-  product?: { handle?: string | null; id?: string | null } | null
+  product?: { handle?: string | null; id?: string | null; thumbnail?: string | null } | null
 }
 
 const ImageGallery = ({ images, product }: ImageGalleryProps) => {
-  const media = getProductMedia(product)
-  const gallery = media.gallery.length
-    ? media.gallery.map((url, index) => ({ id: `media-${index}`, url }))
-    : images
+  const media = getProductMedia({
+    handle: product?.handle,
+    thumbnail: product?.thumbnail,
+    images,
+  })
+  const gallery = (media.gallery.length
+    ? media.gallery
+    : images.map((image) => image.url).filter(Boolean)
+  ).map((url, index) => ({ id: `media-${index}`, url }))
   const [active, setActive] = useState(0)
   const current = gallery[active] || gallery[0]
 

@@ -1,31 +1,8 @@
-import { listCategories } from "@lib/data/categories"
+import { CATEGORY_LANDING } from "@lib/media/catalog"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { getCategoryLabel, getCategoryVisual, LIFESTYLE } from "@lib/media/catalog"
 
-export default async function CategoryGrid() {
-  const productCategories = await listCategories()
-  const categories = (productCategories || []).filter(
-    (category) => !category.parent_category
-  )
-
-  const tiles = [
-    ...categories.slice(0, 4).map((category, index) => ({
-      key: category.id,
-      href: `/categories/${category.handle}`,
-      label: getCategoryLabel(category.name),
-      image: getCategoryVisual(category.handle || category.name, index),
-    })),
-    {
-      key: "shorts",
-      href: "/store",
-      label: "Shorts",
-      image: LIFESTYLE.running,
-    },
-  ].slice(0, 5)
-
-  if (!tiles.length) {
-    return null
-  }
+export default function CategoryGrid() {
+  const tiles = CATEGORY_LANDING.slice(0, 5)
 
   return (
     <section className="content-container py-8 small:py-16">
@@ -37,7 +14,7 @@ export default async function CategoryGrid() {
         {tiles.map((tile) => (
           <li key={tile.key} className="small:first:col-span-2">
             <LocalizedClientLink
-              href={tile.href}
+              href={`/categories/${tile.key}`}
               className="group relative block overflow-hidden bg-[#111111]"
             >
               <div className="relative aspect-[4/5] overflow-hidden">

@@ -1,11 +1,12 @@
 import { getProductPrice } from "@lib/util/get-product-price"
+import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { getCategoryLabel, getProductMedia } from "@lib/media/catalog"
+import { getCatalogFlags, getCategoryLabel, getProductMedia } from "@lib/media/catalog"
 import ProductCard from "./product-card"
 
 export default async function ProductPreview({
   product,
-  region: _region,
+  region,
   showBadge,
   preferAlt,
   compact,
@@ -20,6 +21,7 @@ export default async function ProductPreview({
   const { cheapestPrice } = getProductPrice({
     product,
   })
+  const flags = getCatalogFlags(product)
 
   const category =
     product.collection?.title ||
@@ -31,16 +33,37 @@ export default async function ProductPreview({
     ? `${product.variants.length} variantes`
     : "Envío disponible"
 
+  const originalPrice =
+    flags.onSale && flags.originalPrice
+      ? convertToLocale({
+          amount: flags.originalPrice,
+          currency_code: region.currency_code,
+        })
+      : cheapestPrice?.price_type === "sale"
+        ? cheapestPrice.original_price
+        : null
+
+  const badge = flags.onSale
+    ? "SALE"
+    : flags.isNew || showBadge
+      ? flags.isNew
+        ? "NEW"
+        : null
+      : cheapestPrice?.price_type === "sale"
+        ? "SALE"
+        : null
+
   return (
     <ProductCard
       href={`/products/${product.handle}`}
       title={product.title || "Producto"}
       category={category ? getCategoryLabel(category, product.handle) : null}
       price={cheapestPrice?.calculated_price}
+      originalPrice={originalPrice}
       extra={extra}
       primary={media.primary}
       hover={media.hover}
-      badge={showBadge ? media.badge : cheapestPrice?.price_type === "sale" ? "SALE" : null}
+      badge={badge}
       compact={compact}
     />
   )

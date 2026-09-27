@@ -7,21 +7,35 @@ const LIFE = {
   gym: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=80",
   training: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1400&q=80",
   jacket: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1400&q=80",
+  urban: "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=1400&q=80",
 }
 
 const PRODUCTS = [
-  { id: "t-shirt", title: "Medusa T-Shirt", category: "Camisetas", price: 10, image: vtex(4498740), hover: vtex(4498736), badge: "NEW" },
-  { id: "sweatshirt", title: "Medusa Sweatshirt", category: "Chaquetas", price: 10, image: vtex(4478456), hover: vtex(4478457), badge: "BEST SELLER" },
-  { id: "sweatpants", title: "Medusa Sweatpants", category: "Pantalones", price: 10, image: vtex(3939847), hover: vtex(3939844), badge: "LIMITED" },
-  { id: "shorts", title: "Medusa Shorts", category: "Shorts", price: 10, image: vtex(4463950), hover: vtex(4463945), badge: "NEW" },
+  { id: "t-shirt", title: "Medusa T-Shirt", category: "T-Shirts", price: 10, image: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png", hover: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-back.png", isNew: false, onSale: false },
+  { id: "sweatshirt", title: "Medusa Sweatshirt", category: "Jackets", price: 10, originalPrice: 25, image: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png", hover: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-back.png", isNew: false, onSale: true },
+  { id: "sweatpants", title: "Medusa Sweatpants", category: "Pants", price: 10, image: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png", hover: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-back.png", isNew: false, onSale: false },
+  { id: "shorts", title: "Medusa Shorts", category: "Shorts", price: 10, image: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png", hover: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-back.png", isNew: true, onSale: false },
+  { id: "mesh-training-tee", title: "Mesh Training Tee", category: "T-Shirts", price: 39, image: vtex(4498740), hover: vtex(4498736), isNew: true, onSale: false },
+  { id: "muscle-fit-tee", title: "Muscle Fit Tee", category: "T-Shirts", price: 35, image: vtex(3893372), hover: vtex(3893368), isNew: true, onSale: false },
+  { id: "double-layer-shorts", title: "Double Layer Shorts", category: "Shorts", price: 32, originalPrice: 49, image: vtex(4463950), hover: vtex(4463945), isNew: true, onSale: true },
+  { id: "slim-training-joggers", title: "Slim Training Joggers", category: "Pants", price: 39.99, originalPrice: 59.99, image: vtex(3939847), hover: vtex(3939844), isNew: false, onSale: true },
+  { id: "relaxed-training-joggers", title: "Relaxed Training Joggers", category: "Pants", price: 36, originalPrice: 55, image: vtex(4394293), hover: vtex(4394289), isNew: false, onSale: true },
+  { id: "run-long-sleeve", title: "Run Long Sleeve", category: "Jackets", price: 45, image: vtex(4478456), hover: vtex(4478457), isNew: true, onSale: false },
+  { id: "loose-training-tank", title: "Loose Training Tank", category: "T-Shirts", price: 29, image: vtex(4263636), hover: vtex(4263631), isNew: true, onSale: false },
+  { id: "studio-performance-tee", title: "Studio Performance Tee", category: "T-Shirts", price: 28, originalPrice: 42, image: vtex(4327420), hover: vtex(4327416), isNew: true, onSale: true },
+  { id: "heather-training-joggers", title: "Heather Training Joggers", category: "Pants", price: 34, originalPrice: 52, image: vtex(4039117), hover: vtex(4039114), isNew: false, onSale: true },
+  { id: "everyday-training-set-tee", title: "Everyday Training Set Tee", category: "Sets", price: 38, image: vtex(4498741), hover: vtex(4498746), isNew: true, onSale: false },
+  { id: "studio-training-cap", title: "Studio Training Cap", category: "Accessories", price: 18, image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1200&q=80", hover: "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1200&q=80", isNew: true, onSale: false },
+  { id: "daily-training-bottle", title: "Daily Training Bottle", category: "Accessories", price: 14, originalPrice: 22, image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1200&q=80", hover: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1200&q=80", isNew: false, onSale: true },
 ]
 
 const CATEGORIES = [
-  { name: "Camisetas", image: LIFE.training, href: "store.html" },
-  { name: "Shorts", image: LIFE.running, href: "store.html" },
-  { name: "Pantalones", image: LIFE.gym, href: "store.html" },
-  { name: "Chaquetas", image: LIFE.jacket, href: "store.html" },
-  { name: "Conjuntos", image: LIFE.collection, href: "store.html" },
+  { name: "T-Shirts", image: LIFE.training, href: "store.html?group=T-Shirts" },
+  { name: "Shorts", image: LIFE.running, href: "store.html?group=Shorts" },
+  { name: "Pants", image: LIFE.gym, href: "store.html?group=Pants" },
+  { name: "Jackets", image: LIFE.jacket, href: "store.html?group=Jackets" },
+  { name: "Sets", image: LIFE.collection, href: "store.html?group=Sets" },
+  { name: "Accessories", image: LIFE.urban, href: "store.html?group=Accessories" },
 ]
 
 function money(value) {
@@ -62,9 +76,9 @@ function header() {
         </div>
         <div class="nav-center">
           <a href="store.html">Shop</a>
-          <a href="store.html">Categories</a>
-          <a href="store.html">New</a>
-          <a href="store.html">Sale</a>
+          <a href="categories.html">Categories</a>
+          <a href="new.html">New</a>
+          <a href="sale.html">Sale</a>
         </div>
         <div class="nav-side right">
           <a href="store.html">Search</a>
@@ -73,8 +87,9 @@ function header() {
       </div>
       <div class="mobile-menu wrap" id="mobile-menu">
         <a href="store.html">Shop</a>
-        <a href="store.html">New</a>
-        <a href="store.html">Sale</a>
+        <a href="categories.html">Categories</a>
+        <a href="new.html">New</a>
+        <a href="sale.html">Sale</a>
         <a href="cart.html">Cart</a>
       </div>
     </header>
@@ -92,6 +107,14 @@ function footer() {
         <div class="footer-cols">
           <div>
             <h4>Tienda</h4>
+            <ul>
+              <li><a href="store.html">Todos los productos</a></li>
+              <li><a href="new.html">New arrivals</a></li>
+              <li><a href="sale.html">Sale</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Categorías</h4>
             <ul>${CATEGORIES.map((item) => `<li><a href="${item.href}">${item.name}</a></li>`).join("")}</ul>
           </div>
           <div>
@@ -106,10 +129,11 @@ function footer() {
 }
 
 function productCard(product) {
+  const badge = product.onSale ? "SALE" : product.isNew ? "NEW" : ""
   return `
     <a class="card" href="product.html?id=${product.id}">
       <div class="thumb">
-        ${product.badge ? `<span class="badge">${product.badge}</span>` : ""}
+        ${badge ? `<span class="badge">${badge}</span>` : ""}
         <img src="${product.image}" alt="${product.title}">
         ${product.hover ? `<img class="hover-img" src="${product.hover}" alt="">` : ""}
         <span class="view">Ver producto</span>
@@ -117,7 +141,7 @@ function productCard(product) {
       <div class="card-body">
         <p>${product.category}</p>
         <h3>${product.title}</h3>
-        <strong>${money(product.price)}</strong>
+        <strong>${product.originalPrice ? `<s>${money(product.originalPrice)}</s> ` : ""}${money(product.price)}</strong>
         <span class="meta">Añadir al carrito</span>
       </div>
     </a>
@@ -159,17 +183,60 @@ function renderHome() {
     `).join("")
   }
   const arrivals = document.getElementById("arrivals")
-  if (arrivals) arrivals.innerHTML = PRODUCTS.map(productCard).join("")
+  if (arrivals) arrivals.innerHTML = PRODUCTS.filter((item) => item.isNew).slice(0, 8).map(productCard).join("")
   const sellers = document.getElementById("sellers")
-  if (sellers) sellers.innerHTML = [...PRODUCTS].reverse().map((item, index) => {
-    const alt = { ...item, image: item.hover || item.image, hover: item.image }
-    return productCard(alt)
-  }).join("")
+  if (sellers) sellers.innerHTML = PRODUCTS.filter((item) => item.onSale).slice(0, 4).map(productCard).join("")
 }
 
-function renderStore() {
+function productsForPage(mode) {
+  const params = new URLSearchParams(location.search)
+  const group = params.get("group")
+  let items = PRODUCTS
+  if (mode === "new") items = items.filter((item) => item.isNew)
+  if (mode === "sale") items = items.filter((item) => item.onSale)
+  if (group) items = items.filter((item) => item.category === group)
+  return items
+}
+
+function renderStore(mode = "all") {
   mountChrome()
-  document.getElementById("catalog").innerHTML = PRODUCTS.map(productCard).join("")
+  const params = new URLSearchParams(location.search)
+  const group = params.get("group")
+  const title = document.getElementById("catalog-title")
+  const kicker = document.querySelector(".page-kicker")
+  if (title) {
+    title.textContent =
+      mode === "new" ? "New arrivals" : mode === "sale" ? "Sale" : group || "Todos los productos"
+  }
+  if (kicker) {
+    kicker.textContent = mode === "new" ? "New" : mode === "sale" ? "Sale" : group ? "Categories" : "Shop"
+  }
+  const filters = document.getElementById("catalog-filters")
+  if (filters && mode === "all") {
+    const items = [{ name: "All", href: "store.html" }, ...CATEGORIES]
+    filters.innerHTML = items
+      .map((item) => {
+        const active = item.name === "All" ? !group : group === item.name
+        return `<a class="${active ? "is-active" : ""}" href="${item.href}">${item.name}</a>`
+      })
+      .join("")
+  }
+  document.getElementById("catalog").innerHTML = productsForPage(mode).map(productCard).join("")
+}
+
+function renderCategories() {
+  mountChrome()
+  const root = document.getElementById("category-grid")
+  if (!root) return
+  root.innerHTML = CATEGORIES.map((item) => {
+    const count = PRODUCTS.filter((product) => product.category === item.name).length
+    return `
+      <a class="cat" href="${item.href}">
+        <img src="${item.image}" alt="">
+        <div class="cat-copy"><h3>${item.name}</h3><span>${count} productos →</span></div>
+      </a>
+    `
+  }).join("")
 }
 
 function renderProduct() {
@@ -231,4 +298,4 @@ function renderCart() {
   })
 }
 
-window.Pulse = { renderHome, renderStore, renderProduct, renderCart }
+window.Pulse = { renderHome, renderStore, renderCategories, renderProduct, renderCart }

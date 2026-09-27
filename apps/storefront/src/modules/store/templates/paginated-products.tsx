@@ -1,11 +1,17 @@
 import { listProductsWithSort } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import { OptionValueIds } from "@lib/util/product-option-filters"
+import {
+  CatalogFilter,
+  filterCatalogProducts,
+  matchCategoryProduct,
+} from "@lib/util/catalog-filters"
+import { CATEGORY_LANDING } from "@lib/media/catalog"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
-const PRODUCT_LIMIT = 12
+const PRODUCT_LIMIT = 24
 
 type PaginatedProductsParams = {
   limit: number
@@ -23,6 +29,8 @@ export default async function PaginatedProducts({
   productsIds,
   countryCode,
   optionValueIds,
+  filter = "all",
+  group,
 }: {
   sortBy?: SortOptions
   page: number
@@ -31,9 +39,11 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
   optionValueIds?: OptionValueIds
+  filter?: CatalogFilter
+  group?: string
 }) {
   const queryParams: PaginatedProductsParams = {
-    limit: 12,
+    limit: 50,
   }
 
   if (collectionId) {
@@ -59,15 +69,23 @@ export default async function PaginatedProducts({
   }
 
   const {
-    response: { products, count },
+    response: { products },
   } = await listProductsWithSort({
-    page,
+    page: 1,
     queryParams,
     sortBy,
     countryCode,
     optionValueIds,
   })
 
+  const tile = CATEGORY_LANDING.find((item) => item.key === group)
+  const grouped = tile
+    ? products.filter((product) => matchCategoryProduct(product, tile.key))
+    : products
+  const filtered = filterCatalogProducts(grouped, filter)
+  const count = filtered.length
+  const pageParam = (page - 1) * PRODUCT_LIMIT
+  const paged = filtered.slice(pageParam, pageParam + PRODUCT_LIMIT)
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
@@ -76,7 +94,7 @@ export default async function PaginatedProducts({
         className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-4 gap-y-10 small:gap-x-6"
         data-testid="products-list"
       >
-        {products.map((p) => {
+        {paged.map((p) => {
           return (
             <li key={p.id}>
               <ProductPreview product={p} region={region} />

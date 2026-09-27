@@ -22,7 +22,7 @@ export default function BestSellers({
             Best sellers
           </h2>
         </div>
-        <InteractiveLink href="/store">Ver ofertas</InteractiveLink>
+        <InteractiveLink href="/sale">Ver ofertas</InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 gap-x-3 gap-y-10 small:grid-cols-3 medium:grid-cols-4 small:gap-x-6">
         {products.slice(0, 4).map((product) => (

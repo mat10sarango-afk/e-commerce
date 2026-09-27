@@ -136,7 +136,7 @@ const CartDropdown = ({
                           <Thumbnail
                             thumbnail={item.thumbnail}
                             images={item.variant?.product?.images}
-                            src={getProductMedia({ handle: item.product_handle }).primary}
+                            src={getProductMedia({ handle: item.product_handle, thumbnail: item.thumbnail }).primary}
                             size="square"
                           />
                         </LocalizedClientLink>

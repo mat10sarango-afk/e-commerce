@@ -1,12 +1,7 @@
-import { listCategories } from "@lib/data/categories"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { getCategoryLabel } from "@lib/media/catalog"
+import { CATEGORY_LANDING } from "@lib/media/catalog"
 
-export default async function Footer() {
-  const productCategories = await listCategories()
-  const parents = (productCategories || []).filter(
-    (category) => !category.parent_category
-  )
+export default function Footer() {
 
   return (
     <footer className="w-full bg-black text-[#F2F2F2]">
@@ -35,36 +30,34 @@ export default async function Footer() {
                   </LocalizedClientLink>
                 </li>
                 <li>
-                  <LocalizedClientLink className="hover:text-white transition-colors" href="/store">
+                  <LocalizedClientLink className="hover:text-white transition-colors" href="/new">
                     New arrivals
                   </LocalizedClientLink>
                 </li>
                 <li>
-                  <LocalizedClientLink className="hover:text-white transition-colors" href="/store">
+                  <LocalizedClientLink className="hover:text-white transition-colors" href="/sale">
                     Sale
                   </LocalizedClientLink>
                 </li>
               </ul>
             </div>
-            {parents.length > 0 && (
-              <div className="flex flex-col gap-y-3">
-                <span className="font-display text-xs tracking-[0.22em] uppercase text-white">
-                  Categorías
-                </span>
-                <ul className="grid grid-cols-1 gap-2 text-[#707070]">
-                  {parents.slice(0, 6).map((category) => (
-                    <li key={category.id}>
-                      <LocalizedClientLink
-                        className="hover:text-white transition-colors"
-                        href={`/categories/${category.handle}`}
-                      >
-                        {getCategoryLabel(category.name)}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="flex flex-col gap-y-3">
+              <span className="font-display text-xs tracking-[0.22em] uppercase text-white">
+                Categorías
+              </span>
+              <ul className="grid grid-cols-1 gap-2 text-[#707070]">
+                {CATEGORY_LANDING.map((tile) => (
+                  <li key={tile.key}>
+                    <LocalizedClientLink
+                      className="hover:text-white transition-colors"
+                      href={`/categories/${tile.key}`}
+                    >
+                      {tile.label}
+                    </LocalizedClientLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="flex flex-col gap-y-3">
               <span className="font-display text-xs tracking-[0.22em] uppercase text-white">
                 Ayuda

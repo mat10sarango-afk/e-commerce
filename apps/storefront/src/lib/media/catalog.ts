@@ -1,12 +1,8 @@
 export type ProductMedia = {
   primary: string
-  hover: string
+  hover?: string
   gallery: string[]
-  badge?: "NEW" | "LIMITED" | "BEST SELLER"
 }
-
-const vtex = (id: number) =>
-  `https://hmecuador.vtexassets.com/arquivos/ids/${id}-1200-1600`
 
 export const LIFESTYLE = {
   hero: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2400&q=80",
@@ -25,93 +21,57 @@ export const LIFESTYLE = {
     "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1400&q=80",
 }
 
-const LOOKS: ProductMedia[] = [
-  {
-    primary: vtex(4498740),
-    hover: vtex(4498736),
-    gallery: [vtex(4498740), vtex(4498736), vtex(4498738)],
-    badge: "NEW",
-  },
-  {
-    primary: vtex(3893372),
-    hover: vtex(3893368),
-    gallery: [vtex(3893372), vtex(3893368)],
-    badge: "BEST SELLER",
-  },
-  {
-    primary: vtex(4463950),
-    hover: vtex(4463945),
-    gallery: [vtex(4463950), vtex(4463945)],
-    badge: "NEW",
-  },
-  {
-    primary: vtex(3939847),
-    hover: vtex(3939844),
-    gallery: [vtex(3939847), vtex(3939844)],
-    badge: "LIMITED",
-  },
-  {
-    primary: vtex(4394293),
-    hover: vtex(4394289),
-    gallery: [vtex(4394293), vtex(4394289)],
-    badge: "BEST SELLER",
-  },
-  {
-    primary: vtex(4478456),
-    hover: vtex(4478457),
-    gallery: [vtex(4478456), vtex(4478457)],
-    badge: "NEW",
-  },
-  {
-    primary: vtex(4263636),
-    hover: vtex(4263631),
-    gallery: [vtex(4263636), vtex(4263631)],
-    badge: "LIMITED",
-  },
-  {
-    primary: vtex(4327420),
-    hover: vtex(4327416),
-    gallery: [vtex(4327420), vtex(4327416)],
-    badge: "NEW",
-  },
-  {
-    primary: vtex(4039117),
-    hover: vtex(4039114),
-    gallery: [vtex(4039117), vtex(4039114)],
-    badge: "BEST SELLER",
-  },
-  {
-    primary: vtex(4498741),
-    hover: vtex(4498746),
-    gallery: [vtex(4498741), vtex(4498746)],
-  },
-]
+type CatalogFlags = {
+  isNew?: boolean
+  onSale?: boolean
+  originalPrice?: number | null
+}
 
-const HANDLE_INDEX: Record<string, number> = {
-  "t-shirt": 0,
-  sweatshirt: 5,
-  sweatpants: 3,
-  shorts: 2,
+const FALLBACK_FLAGS: Record<string, CatalogFlags> = {
+  "t-shirt": { isNew: false, onSale: false },
+  sweatshirt: { isNew: false, onSale: true, originalPrice: 25 },
+  sweatpants: { isNew: false, onSale: false },
+  shorts: { isNew: true, onSale: false },
 }
 
 export function getProductMedia(
-  product?: { handle?: string | null; id?: string | null } | null,
+  product?: {
+    handle?: string | null
+    thumbnail?: string | null
+    images?: { url?: string }[] | null
+  } | null,
   options?: { preferAlt?: boolean }
 ): ProductMedia {
-  const handle = product?.handle || ""
-  const mapped = HANDLE_INDEX[handle]
-  const index =
-    typeof mapped === "number"
-      ? mapped
-      : Math.abs(hashCode(product?.id || handle || "pulse")) % LOOKS.length
-  const look = LOOKS[index]
-  if (!options?.preferAlt) {
-    return look
+  const urls = (product?.images || [])
+    .map((image) => image.url)
+    .filter((url): url is string => Boolean(url))
+  const primary = product?.thumbnail || urls[0] || ""
+  const hover = urls.find((url) => url !== primary) || urls[1] || primary
+
+  if (options?.preferAlt && hover) {
+    return { primary: hover, hover: primary, gallery: urls.length ? urls : [hover, primary] }
   }
+
   return {
-    ...look,
-    primary: look.hover,
-    hover: look.primary,
+    primary,
+    hover: hover !== primary ? hover : undefined,
+    gallery: urls.length ? urls : [primary, hover].filter(Boolean),
+  }
+}
+
+export function getCatalogFlags(product?: {
+  handle?: string | null
+  metadata?: Record<string, unknown> | null
+} | null): CatalogFlags {
+  const metadata = product?.metadata || {}
+  const fallback = FALLBACK_FLAGS[product?.handle || ""] || {}
+  return {
+    isNew: Boolean(metadata.isNew ?? fallback.isNew),
+    onSale: Boolean(metadata.onSale ?? fallback.onSale),
+    originalPrice:
+      typeof metadata.originalPrice === "number"
+        ? metadata.originalPrice
+        : fallback.originalPrice,
   }
 }
 
@@ -119,13 +79,16 @@ export function getCategoryVisual(handleOrName: string, index = 0) {
   const key = handleOrName.toLowerCase()
   if (key.includes("shirt") && !key.includes("sweat")) return LIFESTYLE.training
   if (key.includes("short")) return LIFESTYLE.running
-  if (key.includes("pant") || key.includes("sweat")) return LIFESTYLE.gym
-  if (key.includes("merch") || key.includes("jacket")) return LIFESTYLE.jacket
+  if (key.includes("pant")) return LIFESTYLE.gym
+  if (key.includes("jacket") || key.includes("sweat")) return LIFESTYLE.jacket
+  if (key.includes("set")) return LIFESTYLE.collection
+  if (key.includes("access") || key.includes("merch")) return LIFESTYLE.urban
   const pool = [
     LIFESTYLE.training,
     LIFESTYLE.running,
     LIFESTYLE.gym,
     LIFESTYLE.jacket,
+    LIFESTYLE.collection,
     LIFESTYLE.urban,
   ]
   return pool[index % pool.length]
@@ -134,19 +97,21 @@ export function getCategoryVisual(handleOrName: string, index = 0) {
 export function getCategoryLabel(name: string, handle?: string | null) {
   const key = `${handle || ""} ${name}`.toLowerCase()
   if (key.includes("short")) return "Shorts"
-  if (key.includes("shirt") && !key.includes("sweat")) return "Camisetas"
-  if (key.includes("sweatshirt")) return "Chaquetas"
-  if (key.includes("pant")) return "Pantalones"
-  if (key.includes("short")) return "Shorts"
-  if (key.includes("merch")) return "Conjuntos"
+  if (key.includes("jacket")) return "Jackets"
+  if (key.includes("set")) return "Sets"
+  if (key.includes("access")) return "Accessories"
+  if (key.includes("shirt") && !key.includes("sweat")) return "T-Shirts"
+  if (key.includes("sweatshirt")) return "Jackets"
+  if (key.includes("pant")) return "Pants"
+  if (key.includes("merch")) return "Accessories"
   return name
 }
 
-function hashCode(value: string) {
-  let hash = 0
-  for (let i = 0; i < value.length; i++) {
-    hash = (hash << 5) - hash + value.charCodeAt(i)
-    hash |= 0
-  }
-  return hash
-}
+export const CATEGORY_LANDING = [
+  { key: "t-shirts", label: "T-Shirts", image: LIFESTYLE.training },
+  { key: "shorts", label: "Shorts", image: LIFESTYLE.running },
+  { key: "pants", label: "Pants", image: LIFESTYLE.gym },
+  { key: "jackets", label: "Jackets", image: LIFESTYLE.jacket },
+  { key: "sets", label: "Sets", image: LIFESTYLE.collection },
+  { key: "accessories", label: "Accessories", image: LIFESTYLE.urban },
+]

@@ -23,7 +23,7 @@ export default function NewArrivals({
               New arrivals
             </h2>
           </div>
-          <InteractiveLink href="/store">Ver todo</InteractiveLink>
+          <InteractiveLink href="/new">Ver todo</InteractiveLink>
         </div>
         <ul className="grid grid-cols-2 gap-x-3 gap-y-10 small:grid-cols-4 small:gap-x-6">
           {products.slice(0, 8).map((product) => (

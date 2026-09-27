@@ -1,6 +1,5 @@
 import { Suspense } from "react"
 
-import { listCategories } from "@lib/data/categories"
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
@@ -11,16 +10,11 @@ import NavHeader from "@modules/layout/components/nav-header"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
-  const [regions, locales, currentLocale, productCategories] = await Promise.all([
+  const [regions, locales, currentLocale] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
     listLocales(),
     getLocale(),
-    listCategories(),
   ])
-
-  const categories = (productCategories || [])
-    .filter((category) => !category.parent_category)
-    .slice(0, 4)
 
   return (
     <NavHeader>
@@ -46,18 +40,13 @@ export default async function Nav() {
           <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
             Shop
           </LocalizedClientLink>
-          {categories[0] && (
-            <LocalizedClientLink
-              className="hover:text-white/70 transition-colors"
-              href={`/categories/${categories[0].handle}`}
-            >
-              Categories
-            </LocalizedClientLink>
-          )}
-          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/categories">
+            Categories
+          </LocalizedClientLink>
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/new">
             New
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/sale">
             Sale
           </LocalizedClientLink>
         </div>
