@@ -11,8 +11,8 @@
 
 html,
 body {
-  background: #f4f4f5;
-  color: #0a0a0a;
+  background: #f2f2f2;
+  color: #000000;
 }
 
 body {
@@ -89,17 +89,23 @@ body {
   }
 
   .product-card {
-    @apply flex flex-col bg-white rounded-md overflow-hidden border border-neutral-200 transition-all duration-300 ease-out;
+    @apply flex flex-col bg-transparent overflow-hidden transition-transform duration-300 ease-out;
   }
 
   .product-card:hover {
-    @apply -translate-y-1 border-neutral-900;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    @apply -translate-y-1;
+  }
+
+  .product-card img {
+    @apply transition-transform duration-500 ease-out;
+  }
+
+  .product-card:hover img {
+    transform: scale(1.04);
   }
 
   .surface-card {
-    @apply bg-white rounded-md border border-neutral-200;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    @apply bg-white border border-[#F2F2F2];
   }
 
   .text-xsmall-regular {

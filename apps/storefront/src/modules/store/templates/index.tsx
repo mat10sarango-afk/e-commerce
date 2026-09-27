@@ -29,8 +29,8 @@ const StoreTemplate = ({
       <RefinementList sortBy={sort} />
       <div className="w-full">
         <div className="mb-10">
-          <p className="section-kicker mb-3">Catalog</p>
-          <h1 className="display-title text-4xl small:text-5xl" data-testid="store-page-title">
+          <p className="section-kicker mb-3">Shop</p>
+          <h1 className="display-title text-4xl small:text-6xl" data-testid="store-page-title">
             All products
           </h1>
         </div>

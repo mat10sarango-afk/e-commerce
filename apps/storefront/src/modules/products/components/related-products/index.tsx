@@ -50,10 +50,10 @@ export default async function RelatedProducts({
     <div className="product-page-constraint">
       <div className="flex flex-col mb-12">
         <span className="section-kicker mb-3">
-          Related products
+          Related
         </span>
         <h2 className="display-title text-4xl max-w-lg">
-          You might also want to check out these products.
+          Sigue entrenando
         </h2>
       </div>
 

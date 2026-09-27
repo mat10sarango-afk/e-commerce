@@ -19,8 +19,8 @@ const NavHeader = ({ children }: { children: ReactNode }) => {
         className={clx(
           "relative mx-auto border-b border-white/10 text-white transition-all duration-300 ease-out",
           scrolled
-            ? "h-14 bg-black/85 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
-            : "h-16 bg-neutral-950"
+            ? "h-12 bg-black/90 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.18)]"
+            : "h-16 bg-black"
         )}
       >
         {children}

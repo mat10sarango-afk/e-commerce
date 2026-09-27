@@ -36,7 +36,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         data-testid="product-container"
       >
         <div className="w-full">
-          <ImageGallery images={images} />
+          <ImageGallery images={images} product={product} />
         </div>
         <div className="flex w-full flex-col gap-y-8 small:sticky small:top-24 small:self-start">
           <ProductInfo product={product} />

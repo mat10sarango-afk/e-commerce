@@ -24,7 +24,7 @@ export default async function Nav() {
 
   return (
     <NavHeader>
-      <nav className="content-container flex items-center justify-between w-full h-full text-sm text-white">
+      <nav className="content-container flex items-center justify-between w-full h-full text-[12px] text-white">
         <div className="flex items-center gap-3 flex-1 basis-0 h-full">
           <div className="h-full small:hidden">
             <SideMenu
@@ -33,38 +33,44 @@ export default async function Nav() {
               currentLocale={currentLocale}
             />
           </div>
-          <div className="hidden small:flex items-center gap-6 h-full">
-            <LocalizedClientLink
-              className="hover:text-neutral-300 transition-colors duration-200"
-              href="/store"
-            >
-              Store
-            </LocalizedClientLink>
-            {categories.map((category) => (
-              <LocalizedClientLink
-                key={category.id}
-                className="hover:text-neutral-300 transition-colors duration-200"
-                href={`/categories/${category.handle}`}
-              >
-                {category.name}
-              </LocalizedClientLink>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center h-full">
           <LocalizedClientLink
             href="/"
-            className="font-display text-2xl font-extrabold tracking-[0.22em] uppercase hover:text-neutral-200 transition-colors"
+            className="font-display text-[1.7rem] font-extrabold tracking-[0.22em] uppercase"
             data-testid="nav-store-link"
           >
             Pulse
           </LocalizedClientLink>
         </div>
 
-        <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end">
+        <div className="hidden small:flex items-center gap-7 h-full font-display font-semibold uppercase tracking-[0.16em]">
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
+            Shop
+          </LocalizedClientLink>
+          {categories[0] && (
+            <LocalizedClientLink
+              className="hover:text-white/70 transition-colors"
+              href={`/categories/${categories[0].handle}`}
+            >
+              Categories
+            </LocalizedClientLink>
+          )}
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
+            New
+          </LocalizedClientLink>
+          <LocalizedClientLink className="hover:text-white/70 transition-colors" href="/store">
+            Sale
+          </LocalizedClientLink>
+        </div>
+
+        <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end font-display font-semibold uppercase tracking-[0.16em]">
           <LocalizedClientLink
-            className="hidden small:inline-flex hover:text-neutral-300 transition-colors duration-200"
+            className="hidden small:inline-flex hover:text-white/70 transition-colors"
+            href="/store"
+          >
+            Search
+          </LocalizedClientLink>
+          <LocalizedClientLink
+            className="hidden small:inline-flex hover:text-white/70 transition-colors"
             href="/account"
             data-testid="nav-account-link"
           >
@@ -73,12 +79,12 @@ export default async function Nav() {
           <Suspense
             fallback={
               <LocalizedClientLink
-                className="hover:text-neutral-300 flex gap-2 transition-colors"
+                className="hover:text-white/70 flex gap-2 transition-colors"
                 href="/cart"
                 data-testid="nav-cart-link"
               >
                 Cart
-                <span className="inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-white text-neutral-950 px-1.5 text-[11px] font-bold">
+                <span className="inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-white text-black px-1.5 text-[11px] font-bold">
                   0
                 </span>
               </LocalizedClientLink>

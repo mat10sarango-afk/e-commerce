@@ -1,82 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PULSE — Performance Gear</title>
-    <meta
-      name="description"
-      content="Premium athletic apparel and performance gear. Move faster. Train harder."
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/pulse.css" />
   </head>
   <body>
     <div id="header"></div>
-    <section class="hero">
-      <div class="hero-slash"></div>
-      <div class="hero-panel"></div>
+    <section class="hero photo-hero">
+      <img id="hero-photo" alt="" />
       <div class="hero-fade"></div>
       <div class="wrap hero-copy">
         <p class="kicker">Performance gear</p>
-        <h1 class="display">Move faster.<br />Train harder.</h1>
-        <p class="lede">
-          Athletic apparel designed for speed, control and everyday performance.
-        </p>
-        <div class="actions">
-          <a class="btn btn-dark" href="store.html">Shop now</a>
-          <a class="btn btn-ghost" href="store.html">View collection</a>
+        <h1 class="display">Entrena.<br />Muévete.<br />Supera.</h1>
+        <p class="lede">Ropa deportiva diseñada para acompañarte en cada movimiento.</p>
+        <div class="actions"><a class="btn btn-dark" href="store.html">Ver colección</a></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="kicker">New collection</p><h2 class="display">Built to move</h2></div>
+          <a class="muted-link" href="store.html">Ver colección</a>
+        </div>
+        <div class="collection-grid">
+          <a class="collection-hero" href="store.html">
+            <img id="collection-photo" alt="" />
+            <div class="cat-copy"><p class="kicker">Campaign</p><h3>Training season</h3></div>
+          </a>
+          <div class="grid" id="collection-products"></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">Shop by category</p>
+        <h2 class="display page-title">Categorías</h2>
+        <div class="cats" id="categories"></div>
+      </div>
+    </section>
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="kicker">Just dropped</p><h2 class="display">New arrivals</h2></div>
+          <a class="muted-link" href="store.html">Ver todo</a>
+        </div>
+        <div class="grid" id="arrivals"></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap editorial">
+        <img id="editorial-photo" alt="" />
+        <div class="editorial-copy">
+          <p class="kicker">Campaign</p>
+          <h2 class="display">Train without limits</h2>
+          <p>Rendimiento, comodidad y movimiento en una sola colección.</p>
+          <a class="btn btn-dark" href="store.html">Explorar</a>
         </div>
       </div>
     </section>
     <section class="section">
       <div class="wrap">
         <div class="section-head">
-          <div>
-            <p class="kicker">Shop by category</p>
-            <h2 class="display">The lineup</h2>
-          </div>
-          <a class="muted-link" href="store.html">All products</a>
+          <div><p class="kicker">Most wanted</p><h2 class="display">Best sellers</h2></div>
+          <a class="muted-link" href="store.html">Ver ofertas</a>
         </div>
-        <div class="cats" id="categories"></div>
-      </div>
-    </section>
-    <section class="section" style="padding-top: 0; background: #fff">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Featured</p>
-            <h2 class="display">Selected gear</h2>
-          </div>
-          <a class="muted-link" href="store.html">View all</a>
-        </div>
-        <div class="grid" id="featured"></div>
+        <div class="grid" id="sellers"></div>
       </div>
     </section>
     <section class="promo">
-      <div class="wrap">
-        <div class="promo-box">
-          <p class="kicker">Built for training</p>
-          <h2 class="display">Engineered<br />for movement.</h2>
-          <p>
-            Clean cuts, durable fabrics and a silent palette. Performance first,
-            always.
-          </p>
-          <div class="actions" style="margin-top: 1.5rem">
-            <a class="btn btn-dark" href="store.html">Explore the store</a>
-          </div>
+      <div class="wrap promo-box">
+        <div>
+          <h2 class="display">Up to 30% off</h2>
+          <p>Seleccionados de temporada.</p>
         </div>
+        <a class="btn btn-dark" href="store.html">Ver ofertas</a>
       </div>
     </section>
     <div id="footer"></div>
     <script src="assets/pulse.js"></script>
-    <script>
-      Pulse.renderHome()
-    </script>
+    <script>Pulse.renderHome()</script>
   </body>
 </html>

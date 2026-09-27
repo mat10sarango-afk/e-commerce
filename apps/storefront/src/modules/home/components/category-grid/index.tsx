@@ -1,5 +1,6 @@
 import { listCategories } from "@lib/data/categories"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { getCategoryLabel, getCategoryVisual, LIFESTYLE } from "@lib/media/catalog"
 
 export default async function CategoryGrid() {
   const productCategories = await listCategories()
@@ -7,66 +8,57 @@ export default async function CategoryGrid() {
     (category) => !category.parent_category
   )
 
-  if (!categories.length) {
+  const tiles = [
+    ...categories.slice(0, 4).map((category, index) => ({
+      key: category.id,
+      href: `/categories/${category.handle}`,
+      label: getCategoryLabel(category.name),
+      image: getCategoryVisual(category.handle || category.name, index),
+    })),
+    {
+      key: "shorts",
+      href: "/store",
+      label: "Shorts",
+      image: LIFESTYLE.running,
+    },
+  ].slice(0, 5)
+
+  if (!tiles.length) {
     return null
   }
 
   return (
-    <section className="content-container py-16 small:py-24">
-      <div className="mb-10 flex items-end justify-between gap-4">
-        <div>
-          <p className="section-kicker mb-3">Shop by category</p>
-          <h2 className="display-title text-4xl small:text-5xl">The lineup</h2>
-        </div>
-        <LocalizedClientLink
-          href="/store"
-          className="hidden text-sm font-medium uppercase tracking-wider text-neutral-500 transition-colors hover:text-neutral-950 small:inline-flex"
-        >
-          All products
-        </LocalizedClientLink>
+    <section className="content-container py-8 small:py-16">
+      <div className="mb-10">
+        <p className="section-kicker mb-3">Shop by category</p>
+        <h2 className="display-title text-4xl small:text-6xl">Categorías</h2>
       </div>
-      <ul className="grid grid-cols-1 gap-4 xsmall:grid-cols-2 small:grid-cols-4">
-        {categories.slice(0, 4).map((category, index) => {
-          const image = category.products?.find((product) => product.thumbnail)
-            ?.thumbnail
-
-          return (
-            <li key={category.id}>
-              <LocalizedClientLink
-                href={`/categories/${category.handle}`}
-                className="group relative block overflow-hidden rounded-md bg-neutral-950"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  {image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={image}
-                      alt={category.name}
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                    />
-                  ) : (
-                    <div
-                      className="h-full w-full bg-neutral-900"
-                      style={{
-                        backgroundImage:
-                          index % 2 === 0
-                            ? "linear-gradient(160deg, #171717 0%, #0a0a0a 100%)"
-                            : "linear-gradient(200deg, #0a0a0a 0%, #262626 100%)",
-                      }}
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 transition-opacity duration-300 group-hover:from-black/90" />
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="section-kicker text-neutral-300">Category</p>
-                    <h3 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight text-white">
-                      {category.name}
-                    </h3>
-                  </div>
+      <ul className="grid grid-cols-1 gap-3 xsmall:grid-cols-2 small:grid-cols-5">
+        {tiles.map((tile) => (
+          <li key={tile.key} className="small:first:col-span-2">
+            <LocalizedClientLink
+              href={tile.href}
+              className="group relative block overflow-hidden bg-[#111111]"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <img
+                  src={tile.image}
+                  alt=""
+                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/35 transition-colors duration-300 group-hover:bg-black/50" />
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5 text-white">
+                  <h3 className="font-display text-2xl font-extrabold uppercase tracking-tight">
+                    {tile.label}
+                  </h3>
+                  <span className="translate-x-2 text-lg opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+                    →
+                  </span>
                 </div>
-              </LocalizedClientLink>
-            </li>
-          )
-        })}
+              </div>
+            </LocalizedClientLink>
+          </li>
+        ))}
       </ul>
     </section>
   )

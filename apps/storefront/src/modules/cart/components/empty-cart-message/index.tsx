@@ -14,11 +14,10 @@ const EmptyCartMessage = () => {
         level="h1"
         className="display-title text-5xl"
       >
-        Your bag is empty
+        Tu carrito está vacío
       </Heading>
-      <Text className="text-base mt-4 mb-8 max-w-[32rem] text-neutral-600">
-        You don&apos;t have anything in your cart. Let&apos;s change that — start
-        browsing the latest performance gear.
+      <Text className="text-base mt-4 mb-8 max-w-[32rem] text-[#707070]">
+        Aún no hay productos. Empieza por la nueva colección y arma tu sesión.
       </Text>
       <LocalizedClientLink href="/store">
         <Button size="large">Explore products</Button>

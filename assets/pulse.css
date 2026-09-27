@@ -137,12 +137,36 @@ select {
   gap: 0.85rem;
 }
 
+.nav-center {
+  display: none;
+  gap: 1.6rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
 .hero {
   position: relative;
-  min-height: 78vh;
+  min-height: 86vh;
   overflow: hidden;
-  background: #0a0a0a;
+  background: #000;
   color: #fff;
+}
+
+.photo-hero img,
+.collection-hero img,
+.editorial img,
+.cat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-hero img {
+  position: absolute;
+  inset: 0;
 }
 
 .hero-slash {
@@ -294,7 +318,82 @@ select {
 }
 
 .cats {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1rem;
+}
+
+.collection-hero {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  background: #111;
+}
+
+.editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #000;
+  color: #fff;
+}
+
+.editorial img {
+  min-height: 520px;
+}
+
+.editorial-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 3rem;
+}
+
+.white {
+  background: #fff;
+}
+
+.badge {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 2;
+  background: #000;
+  color: #fff;
+  padding: 0.3rem 0.5rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+
+.hover-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.card:hover .hover-img {
+  opacity: 1;
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.thumb img {
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.meta {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .grid {
@@ -598,11 +697,19 @@ select {
   font-size: 0.75rem;
 }
 
+@media (min-width: 901px) {
+  .nav-center {
+    display: flex;
+  }
+}
+
 @media (max-width: 900px) {
   .cats,
   .grid,
   .pdp,
-  .footer-grid {
+  .footer-grid,
+  .collection-grid,
+  .editorial {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -630,7 +737,9 @@ select {
   .pdp,
   .footer-grid,
   .footer-cols,
-  .cart-item {
+  .cart-item,
+  .collection-grid,
+  .editorial {
     grid-template-columns: 1fr;
   }
 }

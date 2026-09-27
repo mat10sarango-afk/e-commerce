@@ -14,6 +14,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
+import { getProductMedia } from "@lib/media/catalog"
 import { usePathname } from "next/navigation"
 import { Fragment, useEffect, useRef, useState } from "react"
 
@@ -107,7 +108,7 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border border-neutral-200 rounded-md shadow-[0_20px_50px_rgba(0,0,0,0.18)] w-[420px] text-neutral-950 overflow-hidden"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border border-[#F2F2F2] w-[420px] text-black overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.12)]"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-between border-b border-neutral-100">
@@ -135,6 +136,7 @@ const CartDropdown = ({
                           <Thumbnail
                             thumbnail={item.thumbnail}
                             images={item.variant?.product?.images}
+                            src={getProductMedia({ handle: item.product_handle }).primary}
                             size="square"
                           />
                         </LocalizedClientLink>
